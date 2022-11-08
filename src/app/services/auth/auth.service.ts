@@ -143,5 +143,6 @@ export class AuthServices {
     const user = new User(email, localId, token, expirationDate);
     this.user.next(user);
     localStorage.setItem('user', JSON.stringify(user));
+    this.router.navigate(['home']);
   }
 }
