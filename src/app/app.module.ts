@@ -40,6 +40,7 @@ import { HttpClient } from '@angular/common/http';
     FallbackComponent,
     LoadingSpinnerComponent,
     AlertComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
