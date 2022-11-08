@@ -36,17 +36,8 @@
               Cart
             </a>
           </li>
-          <li>
-            <a
-              href="#"
-              routerLink="/checkout"
-              routerLinkActive="active"
-              class="nav-link text-white"
-            >
-              Check Out
-            </a>
-          </li>
-          <li>
+
+          <li *ngIf="isAuthenticated">
             <a
               href="#"
               routerLink="/orders"
@@ -56,7 +47,7 @@
               Orders
             </a>
           </li>
-          <li ngbDropdown class="dropdown">
+          <li ngbDropdown class="dropdown" *ngIf="isAuthenticated">
             <a
               ngbDropdownToggle
               class="nav-link dropdown-toggle text-white"
@@ -102,19 +93,20 @@
           aria-label="Search"
         />
       </form>
-
-      <div class="text-end">
+      <div class="text-end" *ngIf="!isAuthenticated; else logout">
         <button
           type="button"
-          routerLink="cart"
+          routerLink="login"
           class="btn btn-light text-dark me-2"
         >
           Login
         </button>
-        <button type="button" routerLink="/login" class="btn btn-primary">
-          Sign Up
-        </button>
       </div>
+      <ng-template #logout>
+        <button type="button" routerLink="/login" class="btn btn-secondary">
+          Log Out
+        </button>
+      </ng-template>
     </div>
   </div>
 </header>

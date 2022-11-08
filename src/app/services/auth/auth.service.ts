@@ -19,6 +19,7 @@ interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthServices {
   // here I'm creating a new subject of type USER
+  // this will always be accessible to all the components and will have the latest info of the user
   user = new Subject<User>();
 
   private apiKey: string = 'AIzaSyCVY_KTFxcw1EY11zeGQBNAe80CLZKrfRw';

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthServices } from 'src/app/services/auth/auth.service';
@@ -9,10 +8,9 @@ import { AuthServices } from 'src/app/services/auth/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private http: HttpClient, private authService: AuthServices) {}
+  displayLogin: boolean = true;
 
-  displayLogin: boolean = false;
-
+  constructor(private authService: AuthServices) {}
   switchMode() {
     this.displayLogin = !this.displayLogin;
   }
@@ -32,7 +30,7 @@ export class LoginComponent {
       // do login
       this.authService.logIn(email, password).subscribe(
         (resp) => {
-          console.log(resp)
+          console.log(resp);
           this.isLoading = false;
         },
         (errMessage) => {
