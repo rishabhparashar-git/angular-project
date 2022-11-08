@@ -10,13 +10,14 @@ import { OrderSuccessComponent } from './components/order-success/order-success.
 import { ProductsComponent } from './components/products/products.component';
 import { FallbackComponent } from './components/shared/fallback/fallback.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'orders', component: MyOrdersComponent },
   { path: 'checkout', component: CheckOutComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductsComponent },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
   { path: 'cart', component: ShoppingCartComponent },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'login', component: LoginComponent },
