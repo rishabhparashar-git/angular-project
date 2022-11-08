@@ -1,1 +1,9 @@
-<p>products works!</p>
+<ul class="list-group">
+  <li
+    *ngFor="let color of colors"
+    [ngStyle]="{ 'background-color': color.value}"
+    class="list-group-item"
+  >
+    {{ color.color }}
+  </li>
+</ul>
