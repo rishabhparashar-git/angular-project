@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Subject, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, catchError, Subject, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from './user.model';
 
@@ -20,10 +21,13 @@ interface AuthResponseData {
 export class AuthServices {
   // here I'm creating a new subject of type USER
   // this will always be accessible to all the components and will have the latest info of the user
-  user = new Subject<User>();
+  // user = new Subject<User>();
+
+  //this is a behavioral subject which allows to get the value without even subscribing when the observable was emitted
+  user = new BehaviorSubject<any>(null);
 
   private apiKey: string = 'AIzaSyCVY_KTFxcw1EY11zeGQBNAe80CLZKrfRw';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signUp(email: string, password: string) {
     const url: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.apiKey}`;
@@ -65,6 +69,32 @@ export class AuthServices {
           );
         })
       );
+  }
+
+  logOut() {
+    this.user.next(null);
+    this.router.navigate(['/login']);
+    localStorage.removeItem('user');
+  }
+
+  autoLogIn() {
+    const userData = localStorage.getItem('user');
+    if (!userData) return;
+    const userDataObject: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(userData);
+
+    const loadedUser = new User(
+      userDataObject.email,
+      userDataObject.id,
+      userDataObject._token,
+      new Date(userDataObject._tokenExpirationDate)
+    );
+    // this loadedUser. will return true only if the token is available and valid
+    if (loadedUser.token) this.user.next(loadedUser);
   }
 
   //to handle errors
@@ -112,5 +142,6 @@ export class AuthServices {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, localId, token, expirationDate);
     this.user.next(user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 }

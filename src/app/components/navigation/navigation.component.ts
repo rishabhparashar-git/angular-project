@@ -21,4 +21,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSub?.unsubscribe();
   }
+
+  logOutHandler() {
+    this.authService.logOut();
+  }
 }
