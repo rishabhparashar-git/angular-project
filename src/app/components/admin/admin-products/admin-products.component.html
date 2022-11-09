@@ -1,3 +1,25 @@
-<div class="container-fluid">
-  <a routerLink="/admin/products/new" class="btn btn-success">New Product</a>
+<div class="m-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of availableProducts">
+        <td>{{ p[1].title }}</td>
+        <td>{{ p[1].category }}</td>
+        <td>{{ p[1].price }}</td>
+        <td>
+          <button (click)="goToForm(p[0])" class="btn btn-success py-1">
+            Edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </div>

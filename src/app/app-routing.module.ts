@@ -37,6 +37,11 @@ const routes: Routes = [
     component: ProductFormComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'admin/products/:product-id',
+    component: ProductFormComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: FallbackComponent },
 ];
 
