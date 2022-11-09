@@ -23,9 +23,10 @@
     <div class="form-group my-3">
       <label for="category">Category</label>
       <select if="category" class="form-control">
-        <option value="">A</option>
-        <option value="">B</option>
-        <option value="">C</option>
+        <option value=""></option>
+        <option *ngFor="let c of categories | keyvalue" [value]="c.key">
+          {{ c.value }}
+        </option>
       </select>
     </div>
     <div class="form-group my-3">
