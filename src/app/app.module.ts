@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { HttpClient } from '@angular/common/http';
+import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HttpClient } from '@angular/common/http';
     LoadingSpinnerComponent,
     AlertComponent,
     LoadingSpinnerComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
