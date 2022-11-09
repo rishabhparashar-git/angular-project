@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomFormsModule } from 'ng2-validation';
 
 //firebase
 // import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -58,6 +59,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     RouterModule,
     FormsModule,
     HttpClientModule,
+    CustomFormsModule,
     // AngularFirestoreModule,
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => getAuth()),

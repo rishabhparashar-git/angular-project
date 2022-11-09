@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
 import { CategoryService } from 'src/app/services/products/category.service';
 
 @Component({
@@ -18,4 +17,8 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  save(form:any){
+    console.log(form)
+
+  }
 }

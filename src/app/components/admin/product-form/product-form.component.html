@@ -1,8 +1,22 @@
 <div class="container">
-  <form>
+  <form #f="ngForm" (ngSubmit)="save(f.value)">
     <div class="form-group my-3">
       <label for="title">Title</label>
-      <input type="text" if="title" class="form-control" />
+      <input
+        #title="ngModel"
+        ngModel
+        name="title"
+        type="text"
+        if="title"
+        class="form-control"
+        required
+      />
+      <div
+        class="alert alert-danger my-1 py-1 text-center"
+        *ngIf="title.touched && title.invalid"
+      >
+        Title is required
+      </div>
     </div>
 
     <div class="form-group my-3">
@@ -12,27 +26,70 @@
           <span class="input-group-text">$</span>
         </div>
         <input
+          [min]="0"
+          ngModel
+          required
+          #price="ngModel"
+          name="price"
           type="text"
           id="price"
           class="form-control"
           aria-label="Amount (to the nearest dollar)"
         />
       </div>
+      <div
+        class="alert alert-danger my-1 py-1 text-center"
+        *ngIf="price.touched && price.invalid"
+      >
+        <div *ngIf="price.errors?.['required']">Price is required</div>
+        <div *ngIf="price.errors?.['min']">Price should be 0 or higher</div>
+      </div>
     </div>
 
     <div class="form-group my-3">
       <label for="category">Category</label>
-      <select if="category" class="form-control">
+      <select
+        required
+        #category="ngModel"
+        ngModel
+        name="category"
+        if="category"
+        class="form-control"
+      >
         <option value=""></option>
         <option *ngFor="let c of categories | keyvalue" [value]="c.key">
           {{ c.value }}
         </option>
       </select>
+      <div
+        class="alert alert-danger my-1 py-1 text-center"
+        *ngIf="category.touched && category.invalid"
+      >
+        category is required
+      </div>
     </div>
     <div class="form-group my-3">
       <label for="imageUrl">Image URL</label>
-      <input type="text" if="imageUrl" class="form-control" />
+      <input
+        ngModel
+        required
+        url
+        #imageUrl="ngModel"
+        name="imageUrl"
+        type="text"
+        if="imageUrl"
+        class="form-control"
+      />
+      <div
+        class="alert alert-danger my-1 py-1 text-center"
+        *ngIf="imageUrl.touched && imageUrl.invalid"
+      >
+        <div *ngIf="imageUrl.errors?.['required']">Image URL is required</div>
+        <div *ngIf="imageUrl.errors?.['url']">
+          Enter a valid a valid url
+        </div>
+      </div>
     </div>
-    <button class="btn btn-primary my-3">Save</button>
+    <button [disabled]="f.invalid" class="btn btn-primary my-3">Save</button>
   </form>
 </div>
