@@ -16,6 +16,8 @@ export class ProductFormComponent implements OnInit {
     category: '',
     imageUrl: '',
   };
+  private newProduct: boolean = true;
+  id: string = '';
   constructor(
     private categoryServices: CategoryService,
     private route: ActivatedRoute,
@@ -29,24 +31,33 @@ export class ProductFormComponent implements OnInit {
     });
 
     //getting query param
-    let id = this.route.snapshot.paramMap.get('product-id');
+    this.id = this.route.snapshot.paramMap.get('product-id') || '';
 
-    //getting current product
-    this.productService.getAllProducts().subscribe((resp) => {
-      const availableProducts = Object.entries(resp);
-      availableProducts.forEach((prod) => {
-        if (prod[0] === id) {
-          this.currentProduct = { id: prod[0], ...prod[1] };
+    if (this.id !== 'new') {
+      this.newProduct = false;
+      productService.getProductById(this.id).then((resp) => {
+        if (resp) {
+          this.currentProduct = resp;
+        } else {
+          console.log('Product Not Found');
         }
       });
-      console.log(this.currentProduct);
-    });
+    }
   }
 
   ngOnInit(): void {}
 
   save(form: any) {
-    this.router.navigate(['/admin/products']);
-    console.log(form);
+    this.handleProductUpdation(form).then(() => {
+      this.router.navigate(['/admin/products']);
+    });
+  }
+
+  handleProductUpdation(form: any) {
+    if (this.newProduct) {
+      return this.productService.addNewProduct(form);
+    } else {
+      return this.productService.updateProduct(form, this.id);
+    }
   }
 }

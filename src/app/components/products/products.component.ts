@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Color } from 'src/app/services/products/color';
-import { ColorsService } from 'src/app/services/products/colors.service';
 import { Product } from 'src/app/services/products/product';
 import { ProductsService } from 'src/app/services/products/products.service';
 
@@ -22,7 +19,7 @@ export class ProductsComponent implements OnInit {
   getAllProducts() {
     this.productService.getProducts().subscribe((res: Product[]) => {
       this.products = res;
-      console.table(this.products)
+      console.table(this.products);
     });
   }
 }
