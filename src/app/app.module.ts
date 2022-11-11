@@ -1,6 +1,6 @@
 //other modules
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,11 +9,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomFormsModule } from 'ng2-validation';
 
 //firebase
-// import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-// import { environment } from '../environments/environment';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
 // import { provideAuth, getAuth } from '@angular/fire/auth';
 // import { provideDatabase, getDatabase } from '@angular/fire/database';
-// import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 // import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 //components
@@ -58,13 +58,14 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     NgbModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CustomFormsModule,
     // AngularFirestoreModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => getAuth()),
     // provideDatabase(() => getDatabase()),
-    // provideFirestore(() => getFirestore()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,9 +1,46 @@
-<ul class="list-group">
+<form [formGroup]="colorForm">
+  <div class="mb-3">
+    <label for="code" class="form-label">Color</label>
+    <input
+      type="color"
+      [ngModel]="colorObject.code"
+      class="ms-3"
+      id="code"
+      formControlName="code"
+    />
+  </div>
+  <button
+    *ngIf="!colorObject.code"
+    [disabled]="colorForm.invalid"
+    (click)="addColor()"
+    class="btn btn-primary"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="colorObject.code"
+    [disabled]="colorForm.invalid"
+    (click)="updateColor()"
+    class="btn btn-primary"
+  >
+    Edit
+  </button>
+</form>
+
+<ul *ngIf="colors" class="list-group">
   <li
     *ngFor="let color of colors"
-    [ngStyle]="{ 'background-color': color.value}"
+    [ngStyle]="{ 'background-color': color.code }"
     class="list-group-item"
   >
-    {{ color.color }}
+    {{ color.code }}
+    <div style="float: right">
+      <button (click)="deleteColor(color)" class="btn btn-primary">
+        <i style="font-size: larger" class="bi bi-trash"></i>
+      </button>
+      <button (click)="enableEdit(color)" class="btn btn-primary">
+        <i style="font-size: larger" class="bi bi-pencil-square"></i>
+      </button>
+    </div>
   </li>
 </ul>

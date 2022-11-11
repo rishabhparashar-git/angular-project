@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from 'src/app/services/products/products.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Color } from 'src/app/services/products/color';
+import { ColorsService } from 'src/app/services/products/colors.service';
 
 @Component({
   selector: 'app-products',
@@ -7,13 +9,51 @@ import { ProductsService } from 'src/app/services/products/products.service';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  colors: any;
-  constructor(private products: ProductsService) {}
+  colorForm!: FormGroup;
+  colorObject: Color = {
+    id: '',
+    code: '',
+  };
+  colors: Color[] | null = null;
 
-  ngOnInit(): void {
-    this.products.getProducts().subscribe((resp) => {
-      this.colors = resp;
-      console.log(this.colors);
+  constructor(private colorsService: ColorsService, private fb: FormBuilder) {
+    this.colorForm = this.fb.group({
+      code: ['', Validators.required],
     });
+  }
+
+  ngOnInit() {
+    this.getAllColors();
+  }
+
+  addColor() {
+    const { value } = this.colorForm;
+    console.log(value);
+    this.colorObject.code = value.code;
+    this.colorsService.addColor(this.colorObject).then((color) => {
+      if (color) {
+        console.log('color added successfully');
+      }
+    });
+  }
+
+  getAllColors() {
+    this.colorsService.getColors().subscribe((res: Color[]) => {
+      this.colors = res;
+    });
+  }
+
+  deleteColor(color: Color) {
+    this.colorsService.deleteColor(color);
+  }
+
+  enableEdit(currentColor: Color) {
+    this.colorObject = currentColor;
+  }
+
+  updateColor() {
+    const { value } = this.colorForm;
+    this.colorObject.code = value.code;
+    this.colorsService.updateColor(this.colorObject).then(() => {});
   }
 }
