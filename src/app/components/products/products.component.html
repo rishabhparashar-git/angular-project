@@ -1,46 +1,18 @@
-<form [formGroup]="colorForm">
-  <div class="mb-3">
-    <label for="code" class="form-label">Color</label>
-    <input
-      type="color"
-      [ngModel]="colorObject.code"
-      class="ms-3"
-      id="code"
-      formControlName="code"
-    />
-  </div>
-  <button
-    *ngIf="!colorObject.code"
-    [disabled]="colorForm.invalid"
-    (click)="addColor()"
-    class="btn btn-primary"
-  >
-    Add
-  </button>
-  <button
-    *ngIf="colorObject.code"
-    [disabled]="colorForm.invalid"
-    (click)="updateColor()"
-    class="btn btn-primary"
-  >
-    Edit
-  </button>
-</form>
-
-<ul *ngIf="colors" class="list-group">
-  <li
-    *ngFor="let color of colors"
-    [ngStyle]="{ 'background-color': color.code }"
-    class="list-group-item"
-  >
-    {{ color.code }}
-    <div style="float: right">
-      <button (click)="deleteColor(color)" class="btn btn-primary">
-        <i style="font-size: larger" class="bi bi-trash"></i>
-      </button>
-      <button (click)="enableEdit(color)" class="btn btn-primary">
-        <i style="font-size: larger" class="bi bi-pencil-square"></i>
-      </button>
+<div *ngIf="products" class="list-group">
+  <div *ngFor="let product of products" class="card-container">
+    <div class="card" style="width: 18rem">
+      <img class="card-img-top" [src]="product.imageUrl" alt="Product Image" />
+      <div class="card-body">
+        <h4 class="card-title">{{ product.title | titlecase }}</h4>
+        <div class="d-flex justify-content-between">
+          <p class="card-text">
+            {{ product.category | titlecase }}
+          </p>
+          <h5 class="card-title">
+            {{ product.price | currency: "INR":"symbol" }}
+          </h5>
+        </div>
+      </div>
     </div>
-  </li>
-</ul>
+  </div>
+</div>
