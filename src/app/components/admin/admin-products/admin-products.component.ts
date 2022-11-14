@@ -16,12 +16,17 @@ export class AdminProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe((resp) => {
-      this.availableProducts = Object.entries(resp);
+    this.productService.getProducts().subscribe((resp) => {
+      this.availableProducts = resp;
+      console.log(resp);
     });
   }
 
   goToForm(id: any) {
     this.router.navigate([id], { relativeTo: this.route });
+  }
+
+  deleteProduct(productId: string) {
+    this.productService.deleteProduct(productId);
   }
 }

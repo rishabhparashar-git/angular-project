@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { Injectable, ɵɵsetComponentScope } from '@angular/core';
+import { collectionData, Firestore } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  deleteDoc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { exhaustMap, take } from 'rxjs/operators';
 import { AuthServices } from '../auth/auth.service';
@@ -37,6 +44,18 @@ export class AdminProductsService {
     return updateDoc(productReference, { ...product });
   }
 
+  deleteProduct(productId: string) {
+    let productReference = doc(this.fs, `products/${productId}`);
+    return deleteDoc(productReference);
+  }
+
+  getProducts(): Observable<Product[]> {
+    //using firebase apis
+    let productReference = collection(this.fs, 'products');
+    return collectionData(productReference, { idField: 'id' }) as Observable<
+      Product[]
+    >;
+  }
   async getProductById(id: string) {
     const productRef = doc(this.fs, 'products', id);
     const productSnap = await getDoc(productRef);
