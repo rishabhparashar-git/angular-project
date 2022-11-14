@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminProductsService } from 'src/app/services/admin/admin-products.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-products',
@@ -10,6 +11,7 @@ import { AdminProductsService } from 'src/app/services/admin/admin-products.serv
 export class AdminProductsComponent implements OnInit {
   availableProducts: any;
   constructor(
+    private _snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
     private productService: AdminProductsService
@@ -27,6 +29,14 @@ export class AdminProductsComponent implements OnInit {
   }
 
   deleteProduct(productId: string) {
-    this.productService.deleteProduct(productId);
+    this.productService.deleteProduct(productId).then(() => {
+      this.triggerSnackBar('Product Deleted');
+    });
+  }
+
+  triggerSnackBar(message: any) {
+    this._snackBar.open(message, 'OK', {
+      duration: 3000,
+    });
   }
 }
