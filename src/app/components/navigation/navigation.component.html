@@ -28,18 +28,6 @@
               Products
             </a>
           </li>
-
-          <li>
-            <a
-              href="#"
-              routerLink="/cart"
-              routerLinkActive="active"
-              class="nav-link text-white"
-            >
-              Cart
-            </a>
-          </li>
-
           <li *ngIf="isAuthenticated">
             <a
               href="#"
@@ -107,6 +95,7 @@
       </div>
       <ng-template #logout>
         <app-cart-icon></app-cart-icon>
+
         <button
           type="button"
           (click)="logOutHandler()"

@@ -1,0 +1,248 @@
+<div class="payment">
+  <form #f="ngForm" (ngSubmit)="save(f.value)">
+    <div class="address-form">
+      <p class="lead">Personal Info</p>
+
+      <div class="form-group row my-2">
+        <div class="split">
+          <label for="name">Name</label>
+          <input
+            #name="ngModel"
+            placeholder="Enter your Name"
+            ngModel
+            name="name"
+            type="text"
+            id="name"
+            class="form-control"
+            required
+          />
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="name.touched && name.invalid"
+          >
+            Name is required
+          </div>
+        </div>
+        <div class="split">
+          <label for="phone">Phone</label>
+          <div class="input-group">
+            <input
+              [min]="0"
+              ngModel
+              placeholder="Enter Phone No."
+              required
+              #phone="ngModel"
+              name="phone"
+              type="text"
+              id="phone"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="phone.touched && phone.invalid"
+          >
+            Phone number should be valid
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row my-2">
+        <div class="split">
+          <label for="country">Country</label>
+          <select
+            required
+            #country="ngModel"
+            ngModel
+            name="country"
+            id="country"
+            class="form-control"
+          >
+            <option value=""></option>
+            <option value="AF">Afghanistan</option>
+            <option value="IN">India</option>
+            <option value="US">Ubited States</option>
+          </select>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="country.touched && country.invalid"
+          >
+            Country is required
+          </div>
+        </div>
+        <div class="split">
+          <label for="state">State</label>
+          <select
+            required
+            #state="ngModel"
+            ngModel
+            name="state"
+            id="state"
+            class="form-control"
+          >
+            <option value=""></option>
+            <option value="AS">Assam</option>
+            <option value="DL">Delhi</option>
+            <option value="UK">Uttarakhand</option>
+          </select>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="state.touched && state.invalid"
+          >
+            State is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row my-2">
+        <div class="split-2">
+          <label for="street">Address</label>
+          <div class="input-group">
+            <input
+              ngModel
+              required
+              placeholder="Address Line 1"
+              #street="ngModel"
+              name="street"
+              type="text"
+              id="street"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="street.touched && street.invalid"
+          >
+            Address cannot be empty
+          </div>
+        </div>
+
+        <div class="split-3">
+          <label for="pincode">Pincode</label>
+          <div class="input-group">
+            <input
+              ngModel
+              required
+              placeholder="Pincode"
+              #pincode="ngModel"
+              name="pincode"
+              type="number"
+              id="pincode"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="pincode.touched && pincode.invalid"
+          >
+            Pincode can't be empty
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section payment-method">
+      <p class="lead">Payment Info</p>
+
+      <div class="form-group row my-2">
+        <div class="split-6">
+          <label for="cardNumber">Card Number</label>
+          <div class="input-group">
+            <input
+              ngModel
+              required
+              placeholder="2123 - 5647 - 8152 - 6311"
+              #cardNumber="ngModel"
+              name="cardNumber"
+              type="text"
+              id="cardNumber"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="cardNumber.touched && cardNumber.invalid"
+          >
+            Card Number cannot be empty
+          </div>
+        </div>
+
+        <div class="split-4">
+          <label for="expiry">Expiry Date</label>
+          <div class="input-group">
+            <input
+              ngModel
+              required
+              #expiry="ngModel"
+              name="expiry"
+              type="date"
+              id="expiry"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="expiry.touched && expiry.invalid"
+          >
+            Expiry Date can't be empty
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row my-2">
+        <div class="split-75">
+          <label for="cardHolder">Card Holder's Name</label>
+          <div class="input-group">
+            <input
+              [min]="0"
+              ngModel
+              placeholder="Enter card holder's name"
+              required
+              #cardHolder="ngModel"
+              name="cardHolder"
+              type="text"
+              id="cardHolder"
+              class="form-control"
+              aria-label="Amount (to the nearest dollar)"
+            />
+          </div>
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="cardHolder.touched && cardHolder.invalid"
+          >
+            Card Holder's Name number should be valid
+          </div>
+        </div>
+        <div class="split-5">
+          <label for="cvv">CVV</label>
+          <input
+            #cvv="ngModel"
+            placeholder="CVV"
+            ngModel
+            cvv="cvv"
+            type="text"
+            id="cvv"
+            class="form-control"
+            required
+          />
+          <div
+            class="alert alert-danger my-2 py-1 text-center"
+            *ngIf="cvv.touched && cvv.invalid"
+          >
+            CVV is required
+          </div>
+        </div>
+      </div>
+
+      <div class="my-3 text-center text-secondary form-control">
+        More payment options will be available very soon
+      </div>
+    </div>
+    <button [disabled]="f.invalid" class="btn btn-primary my-2">Save</button>
+  </form>
+</div>

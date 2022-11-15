@@ -38,6 +38,8 @@ import { FallbackComponent } from './components/shared/fallback/fallback.compone
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { CartIconComponent } from './components/cart-icon/cart-icon.component';
+import { CartSectionComponent } from './components/shopping-cart/cart-section/cart-section.component';
+import { CheckoutSectionComponent } from './components/shopping-cart/checkout-section/checkout-section.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { CartIconComponent } from './components/cart-icon/cart-icon.component';
     LoadingSpinnerComponent,
     ProductFormComponent,
     CartIconComponent,
+    CartSectionComponent,
+    CheckoutSectionComponent,
   ],
   imports: [
     BrowserModule,

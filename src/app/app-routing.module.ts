@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckOutComponent },
   { path: 'home', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
-  { path: 'cart', component: ShoppingCartComponent },
+  { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'login', component: LoginComponent },
   {

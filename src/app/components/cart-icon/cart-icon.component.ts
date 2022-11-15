@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
@@ -7,10 +8,10 @@ import { CartService } from 'src/app/services/cart/cart.service';
   styleUrls: ['./cart-icon.component.css'],
 })
 export class CartIconComponent {
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   goToCart() {
-    this.cartService.checkOut();
+    this.router.navigate(['/cart']);
   }
 
   displayBadge() {
@@ -18,6 +19,8 @@ export class CartIconComponent {
   }
 
   badgeQuantity() {
-    return Object.keys(this.cartService.cart).length > 99 ? '...' : Object.keys(this.cartService.cart).length;
+    return Object.keys(this.cartService.cart).length > 99
+      ? '...'
+      : Object.keys(this.cartService.cart).length;
   }
 }
