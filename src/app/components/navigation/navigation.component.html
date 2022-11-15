@@ -106,9 +106,11 @@
         </button>
       </div>
       <ng-template #logout>
+        <app-cart-icon></app-cart-icon>
         <button
           type="button"
           (click)="logOutHandler()"
+          style="margin-left: 1rem"
           class="btn btn-secondary"
         >
           Log Out

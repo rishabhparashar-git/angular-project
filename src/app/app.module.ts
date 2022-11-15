@@ -11,6 +11,7 @@ import { CustomFormsModule } from 'ng2-validation';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatBadgeModule } from '@angular/material/badge';
 
 //firebase
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
@@ -36,6 +37,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FallbackComponent } from './components/shared/fallback/fallback.component';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
+import { CartIconComponent } from './components/cart-icon/cart-icon.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     AlertComponent,
     LoadingSpinnerComponent,
     ProductFormComponent,
+    CartIconComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +74,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     // provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     MatSnackBarModule,
+    MatBadgeModule,
     MatInputModule,
     BrowserAnimationsModule,
   ],
