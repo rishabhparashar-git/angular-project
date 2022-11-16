@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
@@ -7,20 +8,31 @@ import { CartService } from 'src/app/services/cart/cart.service';
   templateUrl: './cart-icon.component.html',
   styleUrls: ['./cart-icon.component.css'],
 })
-export class CartIconComponent {
+export class CartIconComponent implements OnInit, OnDestroy {
+  itemsInCart: number = 0;
+
+  cartSubs!: Subscription;
   constructor(private cartService: CartService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.cartSubs = this.cartService.cartObservable.subscribe((resp: any) => {
+      this.itemsInCart = Object.keys(resp).length;
+    });
+  }
+
+  ngOnDestroy() {
+    this.cartSubs.unsubscribe();
+  }
 
   goToCart() {
     this.router.navigate(['/cart']);
   }
 
   displayBadge() {
-    return Object.keys(this.cartService.cart).length ? false : true;
+    return this.itemsInCart ? false : true;
   }
 
   badgeQuantity() {
-    return Object.keys(this.cartService.cart).length > 99
-      ? '...'
-      : Object.keys(this.cartService.cart).length;
+    return this.itemsInCart > 99 ? '...' : this.itemsInCart;
   }
 }
