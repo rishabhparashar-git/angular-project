@@ -12,8 +12,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.info h2 {
-  font-size: x-large;
+.info .title {
   margin-bottom: 3px;
 }
 .info p {
@@ -22,7 +21,6 @@
   margin-bottom: 5px;
 }
 .info p:nth-child(2) {
-  font-size: x-large;
   font-weight: lighter;
   color: #fff;
 }
@@ -58,9 +56,19 @@
 }
 
 .lead {
-  font-weight: 400;
+  font-weight: 500;
 }
 
+.cart-total {
+  margin: 0;
+}
+.cart-info span {
+  float: right;
+}
+.grand-total {
+  margin-top: 0.75rem;
+  font-size: large;
+}
 .cart-info {
   margin-top: 2rem;
 }
@@ -68,6 +76,9 @@
   .cart {
     max-height: 70%;
     overflow-y: scroll;
+  }
+  .total {
+    font-size: medium;
   }
 
   .card {
@@ -77,6 +88,7 @@
     text-align: right;
     flex-direction: column;
     width: auto;
+    min-width: 111px;
     border-top: none;
     border-left: 2px solid white;
     margin-top: 0;
