@@ -13,6 +13,9 @@ export const environment = {
     authDomain: 'the-tech-shop.firebaseapp.com',
     messagingSenderId: '880307212428',
   },
+  admin: {
+    id: 'feJdAdWSAHbmQqc2C6FPoYtC9HH3',
+  },
 };
 
 /*

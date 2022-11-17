@@ -9,10 +9,12 @@ import {
   getDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { exhaustMap, take } from 'rxjs/operators';
 import { AuthServices } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 import { Product } from '../products/product';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -44,11 +46,6 @@ export class AdminProductsService {
     return updateDoc(productReference, { ...product });
   }
 
-  deleteProduct(productId: string) {
-    let productReference = doc(this.fs, `products/${productId}`);
-    return deleteDoc(productReference);
-  }
-
   getProducts(): Observable<Product[]> {
     //using firebase apis
     let productReference = collection(this.fs, 'products');
@@ -65,5 +62,22 @@ export class AdminProductsService {
     } else {
       return undefined;
     }
+  }
+
+  deleteProduct(productId: string) {
+    let id: string = '';
+
+    this.authService.user.pipe(take(1)).subscribe((userData: User) => {
+      id = userData.id;
+    });
+
+    return new Promise((resolve, reject) => {
+      if (id === environment.admin.id) {
+        let productReference = doc(this.fs, `products/${productId}`);
+        resolve(deleteDoc(productReference));
+      } else {
+        reject(throwError(() => new Error('user not validated')));
+      }
+    });
   }
 }

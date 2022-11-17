@@ -42,9 +42,14 @@ export class AdminProductsComponent implements OnInit {
   }
 
   deleteProduct(productId: string) {
-    this.productService.deleteProduct(productId).then(() => {
-      this.triggerSnackBar('Product Deleted');
-    });
+    this.productService
+      .deleteProduct(productId)
+      .then(() => {
+        this.triggerSnackBar('Product Deleted');
+      })
+      .catch(() => {
+        this.triggerSnackBar('You are not allowed to delete This');
+      });
   }
 
   triggerSnackBar(message: any) {
