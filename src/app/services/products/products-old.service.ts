@@ -4,7 +4,7 @@ import { AuthServices } from '../auth/auth.service';
 import { exhaustMap, take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class ProductsService {
+export class ProductsOldService {
   constructor(private http: HttpClient, private authService: AuthServices) {}
   colors: any = '';
   getProducts() {
