@@ -1,6 +1,6 @@
 <div class="payment">
-  <form #f="ngForm" (ngSubmit)="save(f.value)">
-    <div class="address-form">
+  <form #form="ngForm" (keypress)="clearError()" (ngSubmit)="save(form)">
+    <div class="address-form" ngModelGroup="address" #address="ngModelGroup">
       <p class="lead">Personal Info</p>
 
       <div class="form-group row my-2">
@@ -14,20 +14,19 @@
             type="text"
             id="name"
             class="form-control"
-            required
           />
-          <div
+          <!-- <div
             class="alert alert-danger my-2 py-1 text-center"
             *ngIf="name.touched && name.invalid"
           >
             Name is required
-          </div>
+          </div> -->
         </div>
         <div class="split">
           <label for="phone">Phone</label>
           <div class="input-group">
             <input
-              [min]="0"
+              required
               ngModel
               placeholder="Enter Phone No."
               required
@@ -36,14 +35,7 @@
               type="text"
               id="phone"
               class="form-control"
-              aria-label="Amount (to the nearest dollar)"
             />
-          </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="phone.touched && phone.invalid"
-          >
-            Phone number should be valid
           </div>
         </div>
       </div>
@@ -64,12 +56,6 @@
             <option value="IN">India</option>
             <option value="US">Ubited States</option>
           </select>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="country.touched && country.invalid"
-          >
-            Country is required
-          </div>
         </div>
         <div class="split">
           <label for="state">State</label>
@@ -86,12 +72,6 @@
             <option value="DL">Delhi</option>
             <option value="UK">Uttarakhand</option>
           </select>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="state.touched && state.invalid"
-          >
-            State is required
-          </div>
         </div>
       </div>
 
@@ -111,12 +91,6 @@
               aria-label="Amount (to the nearest dollar)"
             />
           </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="street.touched && street.invalid"
-          >
-            Address cannot be empty
-          </div>
         </div>
 
         <div class="split-3">
@@ -128,23 +102,21 @@
               placeholder="Pincode"
               #pincode="ngModel"
               name="pincode"
-              type="number"
+              type="text"
               id="pincode"
               class="form-control"
               aria-label="Amount (to the nearest dollar)"
             />
           </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="pincode.touched && pincode.invalid"
-          >
-            Pincode can't be empty
-          </div>
         </div>
       </div>
     </div>
 
-    <div class="form-section payment-method">
+    <div
+      class="form-section payment-method"
+      ngModelGroup="cardInfo"
+      #cardInfo="ngModelGroup"
+    >
       <p class="lead">Payment Info</p>
 
       <div class="form-group row my-2">
@@ -154,7 +126,7 @@
             <input
               ngModel
               required
-              placeholder="2123 - 5647 - 8152 - 6311"
+              placeholder="2123 - 5647 - 8152"
               #cardNumber="ngModel"
               name="cardNumber"
               type="text"
@@ -162,12 +134,6 @@
               class="form-control"
               aria-label="Amount (to the nearest dollar)"
             />
-          </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="cardNumber.touched && cardNumber.invalid"
-          >
-            Card Number cannot be empty
           </div>
         </div>
 
@@ -185,12 +151,6 @@
               aria-label="Amount (to the nearest dollar)"
             />
           </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="expiry.touched && expiry.invalid"
-          >
-            Expiry Date can't be empty
-          </div>
         </div>
       </div>
 
@@ -199,7 +159,6 @@
           <label for="cardHolder">Card Holder's Name</label>
           <div class="input-group">
             <input
-              [min]="0"
               ngModel
               placeholder="Enter card holder's name"
               required
@@ -208,14 +167,7 @@
               type="text"
               id="cardHolder"
               class="form-control"
-              aria-label="Amount (to the nearest dollar)"
             />
-          </div>
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="cardHolder.touched && cardHolder.invalid"
-          >
-            Card Holder's Name number should be valid
           </div>
         </div>
         <div class="split-5">
@@ -230,19 +182,22 @@
             class="form-control"
             required
           />
-          <div
-            class="alert alert-danger my-2 py-1 text-center"
-            *ngIf="cvv.touched && cvv.invalid"
-          >
-            CVV is required
-          </div>
         </div>
       </div>
 
-      <div class="my-3 text-center text-secondary form-control">
+      <!-- <div
+        class="my-3 text-center text-secondary form-control"
+      >
+        More payment options will be available very soon
+      </div> -->
+
+      <div *ngIf="!errorMsg" class="mb-0 text-center alert alert-secondary">
         More payment options will be available very soon
       </div>
+      <div *ngIf="errorMsg" class="mb-0 text-center alert alert-danger">
+        {{ errorMsg }}
+      </div>
     </div>
-    <button [disabled]="f.invalid" class="btn btn-primary my-2">Save</button>
+    <button [disabled]="form.invalid" class="btn btn-primary my-2">Save</button>
   </form>
 </div>
