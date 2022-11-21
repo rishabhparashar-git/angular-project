@@ -40,6 +40,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
 import { CartIconComponent } from './components/cart-icon/cart-icon.component';
 import { CartSectionComponent } from './components/shopping-cart/cart-section/cart-section.component';
 import { CheckoutSectionComponent } from './components/shopping-cart/checkout-section/checkout-section.component';
+import { OrderDetailComponent } from './components/admin/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { CheckoutSectionComponent } from './components/shopping-cart/checkout-se
     CartIconComponent,
     CartSectionComponent,
     CheckoutSectionComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,

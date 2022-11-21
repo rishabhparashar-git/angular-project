@@ -12,6 +12,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { FallbackComponent } from './components/shared/fallback/fallback.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { OrderDetailComponent } from './components/admin/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'admin/orders',
     component: AdminOrdersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin/orders/:order-id',
+    component: OrderDetailComponent,
     canActivate: [AuthGuard],
   },
   {

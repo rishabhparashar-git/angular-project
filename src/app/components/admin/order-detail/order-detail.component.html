@@ -1,0 +1,101 @@
+<div class="container" style="padding-bottom: 1rem">
+  <p
+    class="lead text-center text-secondary fw-normal"
+    style="margin-bottom: '1.5rem'"
+  >
+    Order Id :
+    <span
+      [ngStyle]="{
+        color: true ? 'red' : 'blue'
+      }"
+      >{{ "BNxqQWcir9eFxMSQHQob" }}</span
+    >
+  </p>
+
+  <div class="cart">
+    <p class="lead">Products</p>
+    <!-- <div *ngFor="let orderItem of OrderItemList" class="card">
+            <div class="info">
+              <p class="title">{{ orderItem.title }}</p>
+              <p>{{ orderItem.price | currency: "INR":"symbol" }}</p>
+              <p>{{ orderItem.category }}</p>
+            </div>
+            <div class="controls">
+              <p class="total">{{ orderItem.total | currency: "INR":"symbol" }}</p>
+            </div>
+          </div>-->
+    <div>
+      <div class="card">
+        <div class="info">
+          <p class="title">{{ "Samsung S20" }}</p>
+          <p>{{ 45000 | currency: "INR":"symbol" }}</p>
+          <p>{{ "smartphone" }}</p>
+        </div>
+        <div class="controls">
+          <p class="total">{{ 90000 | currency: "INR":"symbol" }}</p>
+          <div class="actions">
+            <span class="btn lead text-white font-larger">{{ "2" }} units</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="info">
+          <p class="title">{{ "ONe Plus 10R" }}</p>
+          <p>{{ 9000 | currency: "INR":"symbol" }}</p>
+          <p>{{ "smartphone" }}</p>
+        </div>
+        <div class="controls">
+          <p class="total">{{ 36000 | currency: "INR":"symbol" }}</p>
+          <div class="actions">
+            <span class="btn lead text-white font-larger">{{ "2" }} units</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-info">
+      <p class="lead">Summary</p>
+      <p class="cart-total">
+        Cart Total <span>{{ 126000 | currency: "INR":"symbol" }}</span>
+      </p>
+      <p class="cart-total">
+        GST (18%)<span>{{ 1700 | currency: "INR":"symbol" }}</span>
+      </p>
+      <p class="cart-total">
+        Delivery Charge
+        <span>{{ 600 | currency: "INR":"symbol" }}</span>
+      </p>
+      <p class="grand-total">
+        Payable Amount <span>{{ 150000 | currency: "INR":"symbol" }}</span>
+      </p>
+    </div>
+
+    <div class="cart-info">
+      <p class="lead">Deliver to</p>
+      <p class="cart-total">Rishabh Parashar (+91 9911706610)</p>
+      <p class="cart-total">B368, Prem Vihar, Khora Colony</p>
+      <p class="cart-total">Delhi IN, India</p>
+      <p class="cart-total">Pincode 201309</p>
+    </div>
+    <div class="cart-info">
+      <p class="lead">
+        Update Status :
+        <span>
+          <select
+            style="margin-top: -1rem; text-align: center"
+            ngModel
+            name="category"
+            required
+            #category
+            class="form-control category text-dark"
+            ngModel="clear"
+          >
+            <option class="text-secondary" value="clear">update status</option>
+            <option value="processing">Processing</option>
+            <option value="dispatched">Dispatched</option>
+            <option value="delivered">Delivered</option>
+          </select>
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
