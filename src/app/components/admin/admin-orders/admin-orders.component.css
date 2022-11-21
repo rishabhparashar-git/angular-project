@@ -1,0 +1,19 @@
+.blue {
+  color: blue;
+}
+.grey {
+  color: grey;
+}
+.green {
+  color: green;
+}
+.filter {
+  width: auto;
+  display: inline;
+  margin-right: 1rem;
+}
+.category {
+  width: 20vw;
+  display: inline;
+  margin-left: 1rem;
+}

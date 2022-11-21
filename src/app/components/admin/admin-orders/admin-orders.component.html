@@ -1,1 +1,63 @@
-<p>admin-orders works!</p>
+<div class="m-5" style="padding-bottom: 20px">
+  <div>
+    <input
+      #query
+      (keyup)="search(query.value)"
+      placeholder="Search by Order ID..."
+      type="text"
+      class="form-control filter"
+    />
+    <select
+      style="float: right"
+      (change)="changeCategory(category.value)"
+      ngModel
+      name="category"
+      required
+      #category
+      class="form-control category text-dark"
+      ngModel="clear"
+    >
+      <option class="text-secondary" value="clear">Filter By Status</option>
+      <option value="processing">Processing</option>
+      <option value="dispatched">Dispatched</option>
+      <option value="delivered">Delivered</option>
+    </select>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order Id</th>
+        <!-- <th>Value</th> -->
+        <th>Status</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of availableOrders">
+        <td>{{ order.id | uppercase }}</td>
+        <!-- <td>{{ order.value | titlecase }}</td> -->
+        <td
+          class="fw-bold"
+          [ngClass]="[
+            order.status != 'delivered' && order.status != 'processing'
+              ? 'blue'
+              : order.status === 'delivered'
+              ? 'green'
+              : 'grey'
+          ]"
+        >
+          {{ order.status | uppercase }}
+        </td>
+        <td class="d-flex justify-content-center">
+          <button
+            (click)="goToOrderDetail(order.id)"
+            class="btn btn-primary py-1"
+          >
+            Details
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</div>
