@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { addDoc, collection, doc, Firestore } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, Subject, take } from 'rxjs';
+import { AuthServices } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +9,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class CartService {
   cart: any = {};
   cartObservable = new BehaviorSubject({});
-  constructor() {}
+  constructor(private fs: Firestore, private authService: AuthServices) {}
 
   AddToCart(pId: any) {
     this.cart[pId] = 1;
@@ -31,8 +33,29 @@ export class CartService {
     return this.cartObservable;
   }
 
-  checkOut() {
-    console.log('checking out your cart');
-    console.table(this.cart);
+  clearCart() {
+    this.cart = {};
+    this.cartObservable.next({});
+  }
+
+  checkOut(orderInfo: any) {
+    const addressDetails = orderInfo.address;
+    const paymentDetails = orderInfo.cardInfo;
+    const cartDetails = this.cart;
+    const userInfo: any = {};
+    this.authService.user.pipe(take(1)).subscribe((resp) => {
+      userInfo.email = resp.email;
+      userInfo.id = resp.id;
+    });
+    const id: string = doc(collection(this.fs, 'id')).id;
+    const orderObject = {
+      orderId: id,
+      addressDetails: JSON.stringify(addressDetails),
+      paymentDetails: JSON.stringify(paymentDetails),
+      cartDetails: JSON.stringify(cartDetails),
+      userInfo: JSON.stringify(userInfo),
+    };
+    console.log(orderObject);
+    return addDoc(collection(this.fs, 'orders'), orderObject);
   }
 }
