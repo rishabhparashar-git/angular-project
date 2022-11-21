@@ -19,20 +19,22 @@
 
   <div class="cart">
     <p class="lead">Products</p>
-    <div *ngFor="let orderItem of cartValue.products" class="card">
-      <div class="info">
-        <p class="title">{{ orderItem.title }}</p>
-        <p>{{ orderItem.price | currency: "INR":"symbol" }}</p>
-        <p>{{ orderItem.category }}</p>
-      </div>
-      <div class="controls">
-        <p class="total">
-          {{ orderItem.price * orderItem.count | currency: "INR":"symbol" }}
-        </p>
-        <div class="actions">
-          <span class="btn lead text-white font-larger"
-            >{{ orderItem.count }} units</span
-          >
+    <div *ngFor="let orderItem of cartValue.products">
+      <div *ngIf="orderItem.id" class="card">
+        <div class="info">
+          <p class="title">{{ orderItem.title }}</p>
+          <p>{{ orderItem.price | currency: "INR":"symbol" }}</p>
+          <p>{{ orderItem.category }}</p>
+        </div>
+        <div class="controls">
+          <p class="total">
+            {{ orderItem.price * orderItem.count | currency: "INR":"symbol" }}
+          </p>
+          <div class="actions">
+            <span class="btn lead text-white font-larger"
+              >{{ orderItem.count }} units</span
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -74,13 +76,13 @@
           <select
             style="margin-top: -1rem; text-align: center"
             ngModel
-            name="category"
+            name="Orderstatus"
             required
-            #category
+            #OrderStatus
             class="form-control category text-dark"
-            ngModel="clear"
             value="hi"
             [ngModel]="status ? status : 'choose'"
+            (change)="changeStatus(OrderStatus.value)"
           >
             <option value="choose" class="text-secondary">update status</option>
             <option value="processing">Processing</option>

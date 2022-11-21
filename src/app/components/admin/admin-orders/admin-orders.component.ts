@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ManageOrderService } from 'src/app/services/admin/order/manage-order.service';
 
 @Component({
@@ -8,7 +9,11 @@ import { ManageOrderService } from 'src/app/services/admin/order/manage-order.se
 })
 export class AdminOrdersComponent implements OnInit {
   availableOrders: any[] = [];
-  constructor(private orderManagement: ManageOrderService) {
+  constructor(
+    private orderManagement: ManageOrderService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     console.log('constructor called');
   }
 
@@ -19,9 +24,8 @@ export class AdminOrdersComponent implements OnInit {
     });
   }
 
-  completeOrder(orderId: string) {}
   goToOrderDetail(orderId: string) {
-    console.log('going to', orderId);
+    this.router.navigate([orderId], { relativeTo: this.route });
   }
   search(value: string) {}
   changeCategory(value: string) {}

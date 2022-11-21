@@ -83,4 +83,8 @@ export class OrderDetailComponent implements OnInit {
         });
     });
   }
+
+  changeStatus(val: string) {
+    this.status = val;
+  }
 }
