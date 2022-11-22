@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.getAllProducts();
     this.authService.user.subscribe((resp) => {
-      if (resp.token) {
+      if (resp?.token) {
         this.isAuth = true;
       }
     });
