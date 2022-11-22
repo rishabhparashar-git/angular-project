@@ -43,18 +43,24 @@
       <p class="lead">Summary</p>
       <p class="cart-total">
         Cart Total
-        <span>{{ cartValue.totalValue | currency: "INR":"symbol" }}</span>
+        <span class="float-end">{{
+          cartValue.totalValue | currency: "INR":"symbol"
+        }}</span>
       </p>
       <p class="cart-total">
-        GST (18%)<span>{{ cartValue.gst | currency: "INR":"symbol" }}</span>
+        GST (18%)<span class="float-end">{{
+          cartValue.gst | currency: "INR":"symbol"
+        }}</span>
       </p>
       <p class="cart-total">
         Delivery Charge
-        <span>{{ 600 | currency: "INR":"symbol" }}</span>
+        <span class="float-end">{{ 600 | currency: "INR":"symbol" }}</span>
       </p>
       <p class="grand-total">
         Payable Amount
-        <span>{{ cartValue.payableAmount | currency: "INR":"symbol" }}</span>
+        <span class="float-end">{{
+          cartValue.payableAmount | currency: "INR":"symbol"
+        }}</span>
       </p>
     </div>
 
