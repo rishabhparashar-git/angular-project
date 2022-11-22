@@ -8,10 +8,12 @@ import { ManageOrderService } from 'src/app/services/admin/order/manage-order.se
   styleUrls: ['./admin-orders.component.css'],
 })
 export class AdminOrdersComponent implements OnInit {
+  dsc: boolean = true;
   loaded: boolean = false;
   availableOrders: any[] = [];
   localOrders: any = {};
   statusParam: any = '';
+  ordersFilteredByStatus: any[] = [];
   constructor(
     private orderManagement: ManageOrderService,
     private router: Router,
@@ -38,24 +40,28 @@ export class AdminOrdersComponent implements OnInit {
       });
 
       this.route.queryParamMap.subscribe((params) => {
-        this.statusParam = params.get('status');
+        let tempStatusParam = params.get('status');
 
-        if (
-          this.statusParam &&
-          this.orderManagement.STATUS.includes(this.statusParam)
-        ) {
-          this.availableOrders = [];
+        this.statusParam =
+          tempStatusParam &&
+          this.orderManagement.STATUS.includes(tempStatusParam)
+            ? tempStatusParam
+            : '';
+
+        if (this.statusParam) {
+          this.ordersFilteredByStatus = [];
           Object.keys(this.localOrders).forEach((prodId: any) => {
             if (this.localOrders[prodId].status === this.statusParam) {
-              this.availableOrders.push(prodId);
+              this.ordersFilteredByStatus.push(prodId);
             }
           });
         } else {
-          this.availableOrders = [...Object.keys(this.localOrders)];
+          this.ordersFilteredByStatus = [...Object.keys(this.localOrders)];
         }
+        this.availableOrders = [...this.ordersFilteredByStatus];
       });
 
-      console.log(this.availableOrders);
+      this.orderByDate();
       this.loaded = true;
     });
   }
@@ -65,10 +71,10 @@ export class AdminOrdersComponent implements OnInit {
   }
   search(value: string) {
     this.availableOrders = value
-      ? this.localOrders.filter((prod: any) =>
-          prod.id.toLowerCase().includes(value.toLowerCase())
+      ? this.ordersFilteredByStatus.filter((prodId: any) =>
+          prodId.toLowerCase().includes(value.toLowerCase())
         )
-      : this.localOrders;
+      : this.ordersFilteredByStatus;
   }
 
   changeStatus(statusToFilterBy: string) {
@@ -77,5 +83,27 @@ export class AdminOrdersComponent implements OnInit {
       queryParams:
         statusToFilterBy === 'clear' ? {} : { status: statusToFilterBy },
     });
+  }
+
+  orderByDate() {
+    this.dsc = !this.dsc;
+    this.availableOrders.sort((currOrderId, nextOrderId) => {
+      console.log(currOrderId, nextOrderId);
+      let currOrderDate = this.localOrders[currOrderId].orderDate;
+      let nextOrderDate = this.localOrders[nextOrderId].orderDate;
+      let currDateArr = currOrderDate.split('-');
+      let nextDateArr = nextOrderDate.split('-');
+      const currDateInstance = new Date(
+        `${currDateArr[1]}-${currDateArr[0]}-${currDateArr[2]}`
+      );
+      const nextDateInstance = new Date(
+        `${nextDateArr[1]}-${nextDateArr[0]}-${nextDateArr[2]}`
+      );
+      let diff = this.dsc
+        ? currDateInstance.getTime() - nextDateInstance.getTime()
+        : nextDateInstance.getTime() - currDateInstance.getTime();
+      return diff;
+    });
+    console.log(this.availableOrders);
   }
 }

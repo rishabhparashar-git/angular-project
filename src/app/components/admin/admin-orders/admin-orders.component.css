@@ -26,3 +26,6 @@
   display: inline;
   margin-left: 1rem;
 }
+.date-header {
+  cursor: pointer;
+}

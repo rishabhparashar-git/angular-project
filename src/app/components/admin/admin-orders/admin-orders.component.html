@@ -10,14 +10,13 @@
     <select
       style="float: right"
       (change)="changeStatus(category.value)"
-      ngModel
       name="category"
       required
       #category
       class="form-control category text-dark"
-      ngModel="clear"
+      [ngModel]="statusParam ? statusParam : ''"
     >
-      <option class="text-secondary" value="clear">Filter By Status</option>
+      <option class="text-secondary" value="">Filter By Status</option>
       <option value="processing">Processing</option>
       <option value="dispatched">Dispatched</option>
       <option value="delivered">Delivered</option>
@@ -27,7 +26,13 @@
     <thead>
       <tr>
         <th>Order Id</th>
-        <th>Order Date</th>
+        <th class="date-header" (click)="orderByDate()">
+          Order Date
+          <span style="font-size: x-large; margin-left: 0.5rem">
+            <i *ngIf="dsc" class="bi bi-sort-alpha-up"></i>
+            <i *ngIf="!dsc" class="bi bi-sort-alpha-down"></i>
+          </span>
+        </th>
         <th>Status</th>
       </tr>
     </thead>
