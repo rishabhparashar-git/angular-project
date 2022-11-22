@@ -42,8 +42,18 @@ export class AdminProductsService {
   }
 
   updateProduct(product: Product, id: string) {
-    let productReference = doc(this.fs, `products/${id}`);
-    return updateDoc(productReference, { ...product });
+    this.authService.user.pipe(take(1)).subscribe((userData: User) => {
+      id = userData.id;
+    });
+
+    return new Promise((resolve, reject) => {
+      if (id === environment.admin.id) {
+        let productReference = doc(this.fs, `products/${id}`);
+        resolve(updateDoc(productReference, { ...product }));
+      } else {
+        reject(throwError(() => new Error('user not validated')));
+      }
+    });
   }
 
   getProducts(): Observable<Product[]> {

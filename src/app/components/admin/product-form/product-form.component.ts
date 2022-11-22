@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminProductsService } from 'src/app/services/admin/admin-products.service';
 import { CategoryService } from 'src/app/services/products/category.service';
@@ -19,6 +20,7 @@ export class ProductFormComponent implements OnInit {
   private newProduct: boolean = true;
   id: string = '';
   constructor(
+    private _snackBar: MatSnackBar,
     private categoryServices: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
@@ -48,9 +50,11 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {}
 
   save(form: any) {
-    this.handleProductUpdation(form).then(() => {
-      this.router.navigate(['/admin/products']);
-    });
+    this.handleProductUpdation(form)
+      .then(() => {
+        this.router.navigate(['/admin/products']);
+      })
+      .catch((err) => this.triggerSnackBar('You cannot edit this 😎'));
   }
 
   handleProductUpdation(form: any) {
@@ -59,5 +63,11 @@ export class ProductFormComponent implements OnInit {
     } else {
       return this.productService.updateProduct(form, this.id);
     }
+  }
+
+  triggerSnackBar(message: any) {
+    this._snackBar.open(message, 'OK', {
+      duration: 3000,
+    });
   }
 }
