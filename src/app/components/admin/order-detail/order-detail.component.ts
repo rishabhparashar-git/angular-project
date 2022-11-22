@@ -18,6 +18,8 @@ export class OrderDetailComponent implements OnInit {
   paymentDetails: any;
   userInfo: any;
 
+  disableChange: boolean = false;
+
   cartValue = {
     products: [{ id: '', title: '', price: 0, count: 0, category: '' }],
     totalValue: 0,
@@ -84,7 +86,13 @@ export class OrderDetailComponent implements OnInit {
     });
   }
 
-  changeStatus(val: string) {
-    this.status = val;
+  changeStatus(newStatus: string) {
+    this.disableChange = true;
+    if (['processing', 'delivered', 'dispatched'].includes(newStatus)) {
+      this.orderService
+        .updateStatus(this.orderId, newStatus)
+        .then(() => (this.status = newStatus))
+        .finally(() => (this.disableChange = false));
+    }
   }
 }

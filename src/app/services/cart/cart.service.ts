@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, doc, Firestore } from '@angular/fire/firestore';
+import { setDoc } from 'firebase/firestore';
 import { BehaviorSubject, Observable, Subject, take } from 'rxjs';
 import { AuthServices } from '../auth/auth.service';
 
@@ -54,8 +55,10 @@ export class CartService {
       paymentDetails: JSON.stringify(paymentDetails),
       cartDetails: JSON.stringify(cartDetails),
       userInfo: JSON.stringify(userInfo),
+      status: 'processing',
     };
     console.log(orderObject);
-    return addDoc(collection(this.fs, 'orders'), orderObject);
+    const docRef = doc(this.fs, `orders/${id}`);
+    return setDoc(docRef, orderObject);
   }
 }

@@ -6,6 +6,7 @@ import {
   getDoc,
   getDocs,
   query,
+  setDoc,
   where,
 } from 'firebase/firestore';
 
@@ -44,5 +45,11 @@ export class ManageOrderService {
     docsSnap.forEach((doc) => {
       console.log(doc.data());
     });
+  }
+
+  updateStatus(id: string, status: string) {
+    const docRef = doc(this.fs, `orders/${id}`);
+    const data = { status: status };
+    return setDoc(docRef, data, { merge: true });
   }
 }
