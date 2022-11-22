@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { AuthServices } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -7,12 +9,18 @@ import { AuthServices } from 'src/app/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   displayLogin: boolean = true;
 
-  constructor(private authService: AuthServices) {}
+  constructor(private authService: AuthServices, private router: Router) {}
   switchMode() {
     this.displayLogin = !this.displayLogin;
+  }
+
+  ngOnInit() {
+    this.authService.user.pipe(take(1)).subscribe((resp) => {
+      if (resp.token) this.router.navigate(['/home']);
+    });
   }
 
   public isLoading: boolean = false;
