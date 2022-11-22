@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs';
 import { ManageOrderService } from 'src/app/services/admin/order/manage-order.service';
@@ -9,7 +9,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.css'],
 })
-export class OrderDetailComponent implements OnInit {
+export class OrderDetailComponent implements OnInit, OnDestroy {
   loadingState: boolean = true;
   orderId: string = '';
   status: string = '';
@@ -17,6 +17,8 @@ export class OrderDetailComponent implements OnInit {
   addressDetails: any;
   paymentDetails: any;
   userInfo: any;
+  orderDate: string = '';
+  duration: string = '';
 
   disableChange: boolean = false;
 
@@ -52,6 +54,21 @@ export class OrderDetailComponent implements OnInit {
         this.userInfo = JSON.parse(resp['userInfo']);
         this.status = resp['status'];
         this.orderId = resp['orderId'];
+        this.orderDate = resp['orderDate'];
+        // calculating duration
+        // modification required because date format is not suitable
+        const date = new Date();
+        let dateArr = this.orderDate.split('-');
+        const orderDateInstance = new Date(
+          `${dateArr[1]}-${dateArr[0]}-${dateArr[2]}`
+        );
+        this.duration = JSON.stringify(
+          Math.floor(
+            (date.getTime() - orderDateInstance.getTime()) /
+              (1000 * 60 * 60 * 24)
+          )
+          /////////////////////////////////////////////////////////
+        );
         console.log(this.status);
       }
 
@@ -84,6 +101,29 @@ export class OrderDetailComponent implements OnInit {
           this.loadingState = false;
         });
     });
+  }
+
+  ngOnDestroy() {
+    this.loadingState = true;
+    this.orderId = '';
+    this.status = '';
+    this.cartDetails;
+    this.addressDetails;
+    this.paymentDetails;
+    this.userInfo;
+
+    this.disableChange = false;
+
+    this.cartValue = {
+      products: [{ id: '', title: '', price: 0, count: 0, category: '' }],
+      totalValue: 0,
+      gst: 0,
+      payableAmount: 0,
+    };
+    this.allProducts = [];
+
+    this.duration = '';
+    this.orderDate = '';
   }
 
   changeStatus(newStatus: string) {

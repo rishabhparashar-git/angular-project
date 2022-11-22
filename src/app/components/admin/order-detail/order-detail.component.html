@@ -70,16 +70,17 @@
       <p class="cart-total">Pincode {{ addressDetails.pincode }}</p>
     </div>
     <div class="cart-info">
-      <p class="lead">
-        Update Status :
-        <span>
+      <p class="fw-bold">
+        Ordered on {{ orderDate }}
+        <span class="fw-normal">( {{ duration }} days ago)</span>
+        <span class="float-end">
           <select
             style="margin-top: -1rem; text-align: center"
             ngModel
             name="Orderstatus"
             required
             #OrderStatus
-            class="form-control category text-dark"
+            class="form-control text-dark"
             value="hi"
             [ngModel]="status ? status : 'choose'"
             (change)="changeStatus(OrderStatus.value)"

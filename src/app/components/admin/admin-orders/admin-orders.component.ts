@@ -8,6 +8,7 @@ import { ManageOrderService } from 'src/app/services/admin/order/manage-order.se
   styleUrls: ['./admin-orders.component.css'],
 })
 export class AdminOrdersComponent implements OnInit {
+  loaded: boolean = false;
   availableOrders: any[] = [];
   localOrders: any = {};
   statusParam: any = '';
@@ -25,9 +26,14 @@ export class AdminOrdersComponent implements OnInit {
       resp.forEach((prod: any) => {
         let orderId = prod['orderId'];
         if (this.localOrders[orderId]) {
+          //update Status
           this.localOrders[orderId].status = prod['status'];
         } else {
-          this.localOrders[orderId] = { status: prod['status'] };
+          //fill in new Object
+          this.localOrders[orderId] = {
+            status: prod['status'],
+            orderDate: prod['orderDate'],
+          };
         }
       });
 
@@ -50,6 +56,7 @@ export class AdminOrdersComponent implements OnInit {
       });
 
       console.log(this.availableOrders);
+      this.loaded = true;
     });
   }
 

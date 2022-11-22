@@ -43,6 +43,9 @@ export class CartService {
     const addressDetails = orderInfo.address;
     const paymentDetails = orderInfo.cardInfo;
     const cartDetails = this.cart;
+    const date = new Date();
+    const orderDate =
+      date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
     const userInfo: any = {};
     this.authService.user.pipe(take(1)).subscribe((resp) => {
       userInfo.email = resp.email;
@@ -56,6 +59,7 @@ export class CartService {
       cartDetails: JSON.stringify(cartDetails),
       userInfo: JSON.stringify(userInfo),
       status: 'processing',
+      orderDate: orderDate,
     };
     console.log(orderObject);
     const docRef = doc(this.fs, `orders/${id}`);

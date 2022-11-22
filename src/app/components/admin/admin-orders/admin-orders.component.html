@@ -23,39 +23,31 @@
       <option value="delivered">Delivered</option>
     </select>
   </div>
-  <table class="table">
+  <table *ngIf="loaded; else spinner" class="table">
     <thead>
       <tr>
         <th>Order Id</th>
-        <!-- <th>Value</th> -->
+        <th>Order Date</th>
         <th>Status</th>
-        <th class="text-center">Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let id of availableOrders">
+      <tr
+        id="tr"
+        *ngFor="let id of availableOrders"
+        (click)="goToOrderDetail(id)"
+        [class]="localOrders[id].status"
+      >
         <td>{{ id | uppercase }}</td>
-        <!-- <td>{{ order.value | titlecase }}</td> -->
-        <td
-          class="fw-bold"
-          [ngClass]="[
-            localOrders.status != 'delivered' &&
-            localOrders.status != 'processing'
-              ? 'blue'
-              : localOrders.status === 'delivered'
-              ? 'green'
-              : 'grey'
-          ]"
-        >
+        <td>{{ localOrders[id].orderDate }}</td>
+        <td>
           {{ localOrders[id].status | uppercase }}
-        </td>
-        <td class="d-flex justify-content-center">
-          <button (click)="goToOrderDetail(id)" class="btn btn-primary py-1">
-            Details
-          </button>
         </td>
       </tr>
     </tbody>
   </table>
+  <ng-template #spinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
   <!-- <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a> -->
 </div>

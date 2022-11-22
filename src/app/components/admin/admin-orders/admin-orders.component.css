@@ -1,11 +1,20 @@
-.blue {
-  color: blue;
+.dispatched {
+  background-color: rgba(11, 154, 211, 0.757);
 }
-.grey {
-  color: grey;
+.processing {
+  background-color: rgba(154, 154, 154, 0.757);
 }
-.green {
-  color: green;
+.delivered {
+  background-color: rgba(37, 212, 37, 0.757);
+}
+
+#tr {
+  cursor: pointer;
+  transition: 500ms 0s box-shadow;
+}
+
+#tr:hover {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5) inset;
 }
 .filter {
   width: auto;

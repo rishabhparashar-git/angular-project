@@ -48,9 +48,6 @@
 .cart-total {
   margin: 0;
 }
-.cart-info span {
-  float: right;
-}
 .grand-total {
   margin-top: 0.75rem;
   font-size: large;
