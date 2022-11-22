@@ -9,7 +9,7 @@
     />
     <select
       style="float: right"
-      (change)="changeCategory(category.value)"
+      (change)="changeStatus(category.value)"
       ngModel
       name="category"
       required
@@ -33,31 +33,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of availableOrders">
-        <td>{{ order.id | uppercase }}</td>
+      <tr *ngFor="let id of availableOrders">
+        <td>{{ id | uppercase }}</td>
         <!-- <td>{{ order.value | titlecase }}</td> -->
         <td
           class="fw-bold"
           [ngClass]="[
-            order.status != 'delivered' && order.status != 'processing'
+            localOrders.status != 'delivered' &&
+            localOrders.status != 'processing'
               ? 'blue'
-              : order.status === 'delivered'
+              : localOrders.status === 'delivered'
               ? 'green'
               : 'grey'
           ]"
         >
-          {{ order.status | uppercase }}
+          {{ localOrders[id].status | uppercase }}
         </td>
         <td class="d-flex justify-content-center">
-          <button
-            (click)="goToOrderDetail(order.id)"
-            class="btn btn-primary py-1"
-          >
+          <button (click)="goToOrderDetail(id)" class="btn btn-primary py-1">
             Details
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-  <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+  <!-- <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a> -->
 </div>

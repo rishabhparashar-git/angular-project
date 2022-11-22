@@ -16,6 +16,8 @@ import {
 export class ManageOrderService {
   constructor(private fs: Firestore) {}
 
+  STATUS=['processing', 'delivered','dispatched']
+
   getOrders() {
     let ordersReference = collection(this.fs, 'orders');
     return collectionData(ordersReference, { idField: 'id' });
