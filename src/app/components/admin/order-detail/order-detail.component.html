@@ -90,7 +90,7 @@
             value="hi"
             [ngModel]="status ? status : 'choose'"
             (change)="changeStatus(OrderStatus.value)"
-            [disabled]="disableChange"
+            [disabled]="disableChange || status === 'delivered'"
           >
             <option value="choose" class="text-secondary">update status</option>
             <option value="processing">Processing</option>
