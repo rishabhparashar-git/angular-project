@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     return this.authService.user.pipe(
       take(1), // take enables to get only one value
       map((user) => {
-        return user.isAdmin ? true : this.router.createUrlTree(['/login']);
+        return user ? true : this.router.createUrlTree(['/login']);
       })
     );
   }
