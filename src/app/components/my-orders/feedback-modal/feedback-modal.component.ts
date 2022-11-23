@@ -1,5 +1,8 @@
+import { Location } from '@angular/common';
+import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { OrderServiceService } from 'src/app/services/order/order-service.service';
 
 @Component({
@@ -16,6 +19,7 @@ export class FeedbackModalComponent implements OnInit {
   filledStars: number = 0;
   @Input('orderId') orderId: string = '';
   @Output('closeModal') closeModal = new EventEmitter();
+  @Output('reloadParent') reloadParent = new EventEmitter();
 
   ngOnInit(): void {
     console.log(this.orderId);
@@ -35,7 +39,7 @@ export class FeedbackModalComponent implements OnInit {
       .then((resp) => this.triggerSnackBar('Purchase rated, Thanks'))
       .catch((err) => this.triggerSnackBar('Unknown Error Occurred'))
       .finally(() => {
-        this.modalCloseHandler();
+        this.reloadParent.emit();
       });
   }
 

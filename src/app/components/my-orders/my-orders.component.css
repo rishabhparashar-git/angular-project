@@ -1,5 +1,10 @@
 .order-container {
-  border-top: 2px solid black;
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.order {
+  border-top: 1px solid rgb(171, 170, 170);
 }
 p {
   margin: 0;
@@ -26,16 +31,29 @@ img {
   font-size: large;
   margin-bottom: 0.5rem;
 }
-.feedback-trigger button {
-  margin-top: 1rem;
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
-  color: rgb(41, 66, 255);
+.feedback-trigger {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.7rem;
   font-weight: 550;
+}
+.feedback-trigger button {
+  padding: 1rem 0.5rem;
+  color: rgb(41, 66, 255);
   background-color: transparent;
   padding: 0.3rem;
   border: none;
   border: 1px solid rgb(171, 170, 170);
   border-radius: 5px;
+}
+
+i {
+  font-size: 1.2rem;
+}
+
+@media (min-width: 585px) {
+  i {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
 }

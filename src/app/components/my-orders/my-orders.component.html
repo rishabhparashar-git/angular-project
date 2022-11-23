@@ -1,24 +1,33 @@
 <div *ngIf="showOrders; else noOrders" class="">
   <div *ngIf="showFeedback">
     <app-feedback-modal
+      (reloadParent)="reloadPage()"
       (closeModal)="toggleFeedback()"
       [orderId]="feedbackOrderId"
     ></app-feedback-modal>
   </div>
   <div class="order-container">
-    <div class="order">
+    <p class="display-5 fw-medium">My Orders</p>
+    <div class="order" *ngFor="let order of ordersArray">
       <p class="order-heading">
-        Delivered on 22/11/2022<i
-          class="fw-bold float-end bi bi-chevron-right"
-        ></i>
+        {{ order.status }} on {{ order.orderDate
+        }}<i class="fw-bold float-end bi bi-chevron-right"></i>
       </p>
-      <div class="product">
-        <p>Samsung S20 Ultra</p>
-        <p>Oneplus 10R</p>
-        <p>iPhone 14 Pro Max</p>
+      <div class="product" *ngFor="let p of order.productsTitleArray">
+        <p>{{ p }}</p>
       </div>
       <div class="feedback-trigger">
-        <button (click)="toggleFeedback('sdfaf')">Rate & Feedback</button>
+        <button *ngIf="!order.rating" (click)="toggleFeedback(order.orderId)">
+          Rate & Feedback
+        </button>
+        <div *ngIf="order.rating">
+          <span class="text-warning" *ngFor="let i of [1, 2, 3, 4, 5]">
+            <i
+              class="bi p-1"
+              [ngClass]="[i <= order.rating ? 'bi-star-fill' : 'bi-star']"
+            ></i>
+          </span>
+        </div>
       </div>
     </div>
   </div>
