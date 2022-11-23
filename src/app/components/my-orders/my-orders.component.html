@@ -1,1 +1,35 @@
-<p>my-orders works!</p>
+<div *ngIf="showOrders; else noOrders" class="">
+  <div *ngIf="showFeedback">
+    <app-feedback-modal
+      (closeModal)="toggleFeedback()"
+      [orderId]="feedbackOrderId"
+    ></app-feedback-modal>
+  </div>
+  <div class="order-container">
+    <div class="order">
+      <p class="order-heading">
+        Delivered on 22/11/2022<i
+          class="fw-bold float-end bi bi-chevron-right"
+        ></i>
+      </p>
+      <div class="product">
+        <p>Samsung S20 Ultra</p>
+        <p>Oneplus 10R</p>
+        <p>iPhone 14 Pro Max</p>
+      </div>
+      <div class="feedback-trigger">
+        <button (click)="toggleFeedback('sdfaf')">Rate & Feedback</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noOrders>
+  <div class="img-container">
+    <img
+      class="text-center"
+      height="50%"
+      src="../../../assets/empty-orders.png"
+      alt="empty-cart"
+    />
+  </div>
+</ng-template>
