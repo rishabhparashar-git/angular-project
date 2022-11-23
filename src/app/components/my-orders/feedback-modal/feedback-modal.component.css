@@ -13,9 +13,11 @@
 }
 .alert-box {
   position: fixed;
-  top: 30vh;
-  left: 25vw;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 50vw;
+  max-width: 500px;
   padding: 1.5rem;
   z-index: 100;
   background-color: white;
@@ -45,7 +47,7 @@ i {
 }
 @media (min-width: 585px) {
   i {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 300;
   }
   .alert-box p {
