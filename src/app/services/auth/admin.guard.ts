@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { AuthServices } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthServices, private router: Router) {}
   canActivate():
     | boolean
@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     return this.authService.user.pipe(
       take(1), // take enables to get only one value
       map((user) => {
-        return user.isAdmin ? true : this.router.createUrlTree(['/login']);
+        return user.isAdmin ? true : this.router.createUrlTree(['/home']);
       })
     );
   }

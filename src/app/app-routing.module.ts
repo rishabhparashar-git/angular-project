@@ -13,11 +13,12 @@ import { FallbackComponent } from './components/shared/fallback/fallback.compone
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { OrderDetailComponent } from './components/admin/order-detail/order-detail.component';
+import { AdminGuard } from './services/auth/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'orders', component: MyOrdersComponent },
-  { path: 'checkout', component: CheckOutComponent },
+  { path: 'orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckOutComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'cart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
@@ -26,22 +27,22 @@ const routes: Routes = [
   {
     path: 'admin/orders',
     component: AdminOrdersComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'admin/orders/:order-id',
     component: OrderDetailComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'admin/products',
     component: AdminProductsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'admin/products/:product-id',
     component: ProductFormComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   { path: '**', component: FallbackComponent },
 ];
