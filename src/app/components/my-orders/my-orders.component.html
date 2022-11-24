@@ -9,7 +9,7 @@
   <div class="order-container">
     <p class="display-5 fw-medium p-3">My Orders</p>
     <div class="order" *ngFor="let order of ordersArray">
-      <p class="order-heading">
+      <p class="order-heading" (click)="showDetails(order.orderId)">
         {{ order.status }} on {{ order.orderDate
         }}<i class="fw-bold float-end bi bi-chevron-right"></i>
       </p>

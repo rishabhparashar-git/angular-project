@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { OrderServiceService } from 'src/app/services/order/order-service.service';
 
 @Component({
@@ -13,7 +13,11 @@ export class MyOrdersComponent implements OnInit {
   feedbackOrderId: string = '';
   ordersArray: any[] = [];
 
-  constructor(private orderSevice: OrderServiceService) {}
+  constructor(
+    private orderSevice: OrderServiceService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.ordersArray = this.orderSevice.getUserOrders();
@@ -25,5 +29,9 @@ export class MyOrdersComponent implements OnInit {
   }
   reloadPage() {
     window.location.reload();
+  }
+
+  showDetails(orderId:string) {
+    this.router.navigate([orderId], { relativeTo: this.route });
   }
 }
