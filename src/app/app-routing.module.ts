@@ -14,10 +14,16 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { AuthGuard } from './services/auth/auth.guard';
 import { OrderDetailComponent } from './components/admin/order-detail/order-detail.component';
 import { AdminGuard } from './services/auth/admin.guard';
+import { CustomerOrderInfoComponent } from './components/customer-order-info/customer-order-info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  {
+    path: 'orders/:order-id',
+    component: CustomerOrderInfoComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'checkout', component: CheckOutComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
