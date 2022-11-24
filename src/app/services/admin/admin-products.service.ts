@@ -42,12 +42,13 @@ export class AdminProductsService {
   }
 
   updateProduct(product: Product, id: string) {
+    let userId: string;
     this.authService.user.pipe(take(1)).subscribe((userData: User) => {
-      id = userData.id;
+      userId = userData.id;
     });
 
     return new Promise((resolve, reject) => {
-      if (id === environment.admin.id) {
+      if (userId === environment.admin.id) {
         let productReference = doc(this.fs, `products/${id}`);
         resolve(updateDoc(productReference, { ...product }));
       } else {
