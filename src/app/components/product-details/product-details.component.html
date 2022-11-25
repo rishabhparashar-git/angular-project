@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="content">
+  <div *ngIf="loaded; else spinner" class="content">
     <div class="upper">
       <div class="image-section">
         <div class="image">
@@ -48,6 +48,9 @@
 
           <span class="float-end text-primary material-symbols-outlined"
             >add_shopping_cart</span
+          >
+          <span class="float-end text-primary material-symbols-outlined"
+            >shopping_cart_checkout</span
           >
         </div>
 
@@ -99,4 +102,7 @@
       </div>
     </div>
   </div>
+  <ng-template #spinner>
+    <app-loading-spinner></app-loading-spinner>
+  </ng-template>
 </div>
