@@ -44,12 +44,20 @@
           >
             Buy Now
           </button> -->
-          <button class="btn btn-primary">Buy Now</button>
+          <button (click)="buyNow(prod.id)" class="btn btn-primary">
+            Buy Now
+          </button>
 
-          <span class="float-end text-primary material-symbols-outlined"
+          <span
+            *ngIf="!addedToCart"
+            (click)="addToCart(prod.id)"
+            class="float-end text-primary material-symbols-outlined"
             >add_shopping_cart</span
           >
-          <span class="float-end text-primary material-symbols-outlined"
+          <span
+            *ngIf="addedToCart"
+            (click)="goToCart()"
+            class="float-end text-primary material-symbols-outlined"
             >shopping_cart_checkout</span
           >
         </div>

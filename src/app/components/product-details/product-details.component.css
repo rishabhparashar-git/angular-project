@@ -19,7 +19,9 @@
   width: 100%;
   padding: 1rem;
 }
-
+.actions span {
+  cursor: pointer;
+}
 img {
   margin-left: 5%;
   margin-right: 5%;

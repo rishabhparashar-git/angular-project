@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminProductsService } from 'src/app/services/admin/admin-products.service';
-import { ProductsService } from 'src/app/services/products/products.service';
+import { AuthServices } from 'src/app/services/auth/auth.service';
+import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -9,6 +10,7 @@ import { ProductsService } from 'src/app/services/products/products.service';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
+  addedToCart = false;
   prod: any = {};
   loaded: boolean = false;
   selectedImage: string = '';
@@ -19,7 +21,9 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productService: AdminProductsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cart: CartService,
+    private authService: AuthServices
   ) {
     console.log(this.selectedColorCode);
   }
@@ -41,5 +45,34 @@ export class ProductDetailsComponent implements OnInit {
       }
       this.loaded = true;
     });
+
+    this.cart.cartObservable.subscribe(
+      (cart) => (this.addedToCart = Object.keys(cart).includes(this.id))
+    );
+  }
+
+  buyNow(id: string) {
+    this.authService.user.subscribe((resp) => {
+      if (resp?.token) {
+        this.cart.AddToCart(id);
+        this.addedToCart = true;
+        this.goToCart();
+      } else {
+        this.router.navigate(['login']);
+      }
+    });
+  }
+  addToCart(id: string) {
+    this.authService.user.subscribe((resp) => {
+      if (resp?.token) {
+        this.cart.AddToCart(id);
+        this.addedToCart = true;
+      } else {
+        this.router.navigate(['login']);
+      }
+    });
+  }
+  goToCart() {
+    this.router.navigate(['cart']);
   }
 }
