@@ -43,6 +43,7 @@ import { CheckoutSectionComponent } from './components/shopping-cart/checkout-se
 import { OrderDetailComponent } from './components/admin/order-detail/order-detail.component';
 import { FeedbackModalComponent } from './components/my-orders/feedback-modal/feedback-modal.component';
 import { CustomerOrderInfoComponent } from './components/customer-order-info/customer-order-info.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { CustomerOrderInfoComponent } from './components/customer-order-info/cus
     OrderDetailComponent,
     FeedbackModalComponent,
     CustomerOrderInfoComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
