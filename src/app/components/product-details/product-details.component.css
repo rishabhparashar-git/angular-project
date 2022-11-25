@@ -125,10 +125,14 @@ button {
   }
   .detail-section {
     margin-top: 2rem;
-    width: 60%;
+    width: 50%;
     gap: 2rem;
     overflow-y: scroll;
-    padding-left: 10%;
+    padding-left: 5%;
+    margin-right: 5rem;
+  }
+  .detail-section::-webkit-scrollbar {
+    display: none;
   }
   .color-section li {
     border-width: 5px;
