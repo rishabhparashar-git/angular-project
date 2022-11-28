@@ -57,4 +57,8 @@ export class ProductsComponent implements OnInit {
   decrementCart(pId: any) {
     this.cartServices.cartOperations(pId, '-');
   }
+
+  navigateToDetails(id: any) {
+    this.router.navigate([`/products/${id}`]);
+  }
 }

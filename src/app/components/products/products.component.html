@@ -3,7 +3,10 @@
     <div class="card" style="width: 18rem">
       <img class="card-img-top" [src]="product.imageUrl" alt="Product Image" />
       <div class="card-body">
-        <h4 class="card-title">{{ product.title | titlecase }}</h4>
+        <h4 (click)="navigateToDetails(product.id)" class="card-title">
+          {{ product.title | titlecase }}
+          <span class="icon material-symbols-outlined"> read_more </span>
+        </h4>
         <div class="d-flex justify-content-between">
           <p class="card-text">
             {{ product.category | titlecase }}
