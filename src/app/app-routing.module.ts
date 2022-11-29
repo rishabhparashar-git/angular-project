@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-import { AdminModule } from './components/admin/admin.module';
 import { CartModule } from './components/cart/cart.module';
 import { FallbackComponent } from './components/fallback/fallback.component';
 import { OrderModule } from './components/order/order.module';
 import { ProductModule } from './components/product/product.module';
+import { AdminRoutingModule } from './components/admin/admin-routing.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => AdminModule,
+    loadChildren: () => AdminRoutingModule,
   },
   {
     path: 'products',

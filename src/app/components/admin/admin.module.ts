@@ -21,15 +21,15 @@ import { ProductFormComponent } from './product-form/product-form.component';
     FormsModule,
     CommonModule,
     BrowserAnimationsModule,
-    RouterModule,
     AdminRoutingModule,
     SharedModule,
   ],
   exports: [
-    AdminProductsComponent,
-    AdminOrdersComponent,
-    OrderDetailComponent,
-    ProductFormComponent,
+    RouterModule,
+    // AdminProductsComponent,
+    // AdminOrdersComponent,
+    // OrderDetailComponent,
+    // ProductFormComponent,
   ],
 })
 export class AdminModule {}
